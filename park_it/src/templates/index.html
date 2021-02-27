@@ -1,0 +1,419 @@
+
+{%  extends 'customer/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<style>
+    
+.profile-card-4 {
+    max-width: 300px;
+    background-color: #FFF;
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+.profile-card-4 img {
+    transition: all 0.25s linear;
+}
+
+.profile-card-4 .profile-content {
+    position: relative;
+    padding: 15px;
+    background-color: #FFF;
+}
+
+.profile-card-4 .profile-name {
+    font-weight: bold;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: -70px;
+    color: #FFF;
+    font-size: 17px;
+}
+
+.profile-card-4 .profile-name p {
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+}
+
+.profile-card-4 .profile-description {
+    color: #777;
+    font-size: 12px;
+    padding: 10px;
+}
+
+.profile-card-4 .profile-overview {
+    padding: 15px 0px;
+}
+
+.profile-card-4 .profile-overview p {
+    font-size: 10px;
+    font-weight: 600;
+    color: #777;
+}
+
+.profile-card-4 .profile-overview h4 {
+    color: #273751;
+    font-weight: bold;
+}
+
+.profile-card-4 .profile-content::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    top: -10px;
+    left: 0px;
+    right: 0px;
+    background-color: #FFF;
+    z-index: 0;
+    transform: skewY(3deg);
+}
+
+.profile-card-4:hover img {
+    transform: rotate(5deg) scale(1.1, 1.1);
+    filter: brightness(110%);
+}
+/* for search baar */
+
+
+
+    .searchbar{
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: #353b48;
+    border-radius: 30px;
+    padding: 10px;
+    width: 600px;
+    }
+
+    .search_input{
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 450px;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_input{
+    padding: 0 10px;
+    width: 450px;
+    caret-color:red;
+    transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_icon{
+    background: white;
+    color: #e74c3c;
+    }
+
+    .search_icon{
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:rgb(255, 0, 0);
+    text-decoration:none;
+    }
+/*  */
+.header{
+    color: #ffffff;
+    background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,00,0.7)) ,url("./img/header.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+/* how it works */
+.how-it-works-block {
+padding-top: 50px;
+padding-bottom: 50px;
+}
+.how-it-works-block__item-number {
+width: 90px;
+height: 90px;
+border-radius: 50%;
+border: 1px solid #f90825;
+display: inline-block;
+text-align: center;
+line-height: 90px;
+font-size: 48px;
+color: #f90825;
+font-weight: 300;
+margin: 15px 30px;
+}
+</style>
+<br><br><br><br><br><br><br>
+
+<!-- end of header -->
+<div class="container">
+    
+    <div class="col-12 offset-md-2 col-md-8  h-100">
+        <div class="d-flex justify-content-center h-100">
+          <div class="searchbar">
+            <form method="get">
+                {{Partnerfilter.form.address}}
+                <button class="search_icon" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    <br>    
+    <div class="row">
+        {% for partner in partner %}
+            <div class="col-12 col-md-4 ">
+                
+                <div class="profile-card-4 text-center"><img src="{{partner.profile_pic.url}}" class="img img-responsive" width="100%" height="200">
+                    <div class="profile-content">
+                        <div class="profile-name">{{partner.name}}
+                            <p>{{partner.email}}</p>
+                        </div>
+                        <div class="profile-description">{{partner.description}}<br>{{partner.city}}<br>{{partner.address}}<br></div>
+                        <div class="row ">
+                            <div class="col-md-4">
+                                <p>Total</p>
+                                <h4>{{partner.fw_total_space}}</h4>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Available</p>
+                                <h4>{{partner.fw_available_space}}</h4>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Booked</p>
+                                <h4>{{partner.fw_booked_space}}</h4>
+                            </div>
+                        </div>
+                        <p class="">Status : {{partner.status}}</p>
+                        <a href="http://maps.google.com/maps?q={{partner.address}}" class="btn btn-primary m-1">Navigate</a>
+                        <a href="{% url 'create_booking_c' partner.id %}" class="btn btn-success m-1">Book Now</a>
+                        <a href="tel:{{partner.phone}}" class="btn btn-info m-1"> call Now</a>
+                        <a href="mailto:{{partner.email}}" class="btn btn-warning m-1"> Send email</a>
+                    </div>
+                </div>
+            </div>
+ 
+              <!--  -->
+              
+        {% endfor %}
+        
+        
+    </div>
+
+</div>
+
+<!-- ABOUT US -->
+<section class=" py-5 about-section my-5" id="aboutus" style="background-color: #273751; color: #FFF;">
+    <div class="container ">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase font-weight-bold">
+                Our  <span style="color: rgb(8, 144, 255);">Mission</span>
+            </h2>
+            <hr>
+            <p class="ital" style="font-size: 1.3rem;">
+                We’re on a mission to empower people - for them to reach anywhere and anytime, by designing a platform that helps find, reserve and pay for parking easily. We aim to make parking hassle free, Indian cities more accessible and people more connected.
+            </p>
+            
+            <h2 class="section-heading text-uppercase font-weight-bold">
+                About our  <span style="color: rgb(8, 144, 255);">Park-IT Team</span>
+            </h2>
+            <hr>
+            <p class="ital" style="font-size: 1.3rem;">
+                All of us have travelled different paths in life but have come together for a typical cause – not to get our vehicles towed.
+
+
+We at Park-IT share a common goal - to make parking easier like never before through India’s first online parking booking app.
+
+
+Solving this problem in India is no easy feat as almost everyone in the country is struggling with the ever-increasing parking issue. We are a team of creative thinkers, innovators and change-seekers who have assembled together and are committed to making a positive impact in the lives of people and you are cordially invited to be a part of it.
+</p>
+
+        </div>
+    </div>
+</section>
+
+<!-- end of aboutus -->
+
+<section class="my-5" style="background-color: rgba(255, 187, 0, 0.774);" id="howwork">
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        <br><br><br>
+        <h1 style="color: #ff0000;text-align:center; font-weight: bold;">WE HAVE A SPOT 4 U</h1>
+        <hr>
+        <div class="col-md-12 col-xs-12 col-sm-12">
+            <div class="row">
+                <div class=" col-md-3 large-4 medium-4 small-12 column matchHeight how-it-works-block__item text-center">
+                    <a href="{% url 'register' %}"><span class="how-it-works-block__item-number" >1</span></a>
+                    <p class="how-it-works-block__item-text"></p>
+                    <h3 style="text-align: center;"><span class="fa fa-search" aria-hidden="true" style="color: #f90825;"></span> Search parking spaces.</h3>
+                    <p style="text-align: center;"></p>
+                </div>
+                <div class=" col-md-3 large-4 medium-4 small-12 column matchHeight how-it-works-block__item text-center">
+                    <a href=""><span class="how-it-works-block__item-number" >2</span></a>
+                    <p class="how-it-works-block__item-text"></p>
+                    <h3 style="text-align: center;"><span class="fas fa-dollar-sign" aria-hidden="true" style="color: #f90825;"></span><span class="fas fa-dollar-sign" aria-hidden="true" style="color: #f90825;"></span> Compare your options.</h3>
+                    <p style="text-align: center;"></p>
+                </div>
+                <div class=" col-md-3 large-4 medium-4 small-12 column matchHeight how-it-works-block__item text-center">
+                    <a href=""><span class="how-it-works-block__item-number" >3</span></a>
+                    <p class="how-it-works-block__item-text"></p>
+                    <h3 style="text-align: center;"><span class="fa fa-car" aria-hidden="true" style="color: #f90825;"></span>Reserve your parking pass or drive up.</h3>
+                    <p style="text-align: center;"></p>
+                </div>
+                <div class=" col-md-3 large-4 medium-4 small-12 column matchHeight how-it-works-block__item text-center">
+                    <a href=""><span class="how-it-works-block__item-number" >4</span></a>
+                    <p class="how-it-works-block__item-text"></p>
+                    <h3 style="text-align: center;"><span class="fa fa-check" aria-hidden="true" style="color: #f90825;"></span> You're done!
+
+                        Wasn't that easy?</h3>
+                    <p style="text-align: center;"></p>
+                </div>
+                
+            </div>
+        </div>
+        <br><br><br>
+    </div>
+</section>
+<section class="my-5" style="background-color: rgba(255, 102, 0, 0.39);>
+    <div class="col-md-12 col-xs-12 col-sm-12">
+		<br><br><br>
+		<h1 style="color: #1e0a64;text-align:center; font-weight: bold;">Use your Space as Rent Parking</h1>
+		<hr>
+		<div class="col-md-12 col-xs-12 col-sm-12">
+			<div class="row">
+                <div class=" col-md-3 large-4 medium-4 small-12 column matchHeight how-it-works-block__item text-center">
+                    <a href="{% url 'register_partner' %}"><span class="how-it-works-block__item-number" >1</span></a>
+                    <p class="how-it-works-block__item-text"></p>
+                    <h3 style="text-align: center;"> Login</h3>
+                    <p style="text-align: center;">Get registered with Park-IT and Get Paid</p>
+                </div>
+                <div class=" col-md-3 large-4 medium-4 small-12 column matchHeight how-it-works-block__item text-center">
+                    <a href=""><span class="how-it-works-block__item-number">2</span></a>
+                    <p class="how-it-works-block__item-text"></p><h3 style="text-align: center;">Complete your profile</h3>
+                    <p style="text-align: center;">Post your parking space and mention all the required details.</p>
+                </div>
+                <div class="col-md-3 large-4 medium-4 small-12 column matchHeight how-it-works-block__item text-center">
+                    <span class="how-it-works-block__item-number">3</span>
+                    <p class="how-it-works-block__item-text"></p><h3 style="text-align: center;">You are in the light.</h3>
+                    <p style="text-align: center;">Once you complete your profile, customer can view and book the same.</p>
+                </div>
+                <div class="col-md-3 large-4 medium-4 small-12 column matchHeight how-it-works-block__item text-center">
+                    <span class="how-it-works-block__item-number">4</span>
+                    <p class="how-it-works-block__item-text"></p>
+                    <h3 style="text-align: center;">Get Paid</h3>
+                    <p style="text-align: center;">Once booked, you’ll receive a text message with date, time slot and payment status.</p>
+                </div>
+            </div>
+		</div>
+		<br><br><br>
+	</div>
+</section>
+<section>
+    <div class="contact-us">
+        <div class="container">
+          <h3><center>Contact Us </center></h3><hr>
+          <div class="contact-form">
+            <div class="row">
+              
+              <div class="col-md-5 col-xs-12">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.344106093677!2d75.89193308937224!3d22.75260768803269!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396302af403406fb%3A0x5b50834b117f8bab!2sVijay%20Nagar%2C%20Indore%2C%20Madhya%20Pradesh%20452010!5e0!3m2!1sen!2sin!4v1607437123081!5m2!1sen!2sin" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                
+                <div class="row col1">
+                  <div class="col-sm-3">
+                    <i class="fa fa-map-marker"></i> &nbsp; Address
+                  </div>
+                  <div class="col-sm-9">
+                    Park-IT,Indore
+                  </div>
+                </div>
+                <div class="row col1">
+                    <div class="col-sm-3">
+                      <i class="fa fa-phone"></i> &nbsp; Phone
+                    </div>
+                    <div class="col-sm-9">
+                      +91 9131875590
+                    </div>
+                  </div>
+                <div class="row col1">
+                  <div class="col-sm-3">
+                    <i class="fa fa-envelope"></i> &nbsp; Email
+                  </div>
+                  <div class="col-sm-9">
+                    support@parkit.com
+                  </div>
+                </div><br>
+                
+              </div>
+              <div class="col-md-7 col-xs-12">
+                <form method="post" action="" role="form">
+                  <div class="messages" id="form-messages"></div>
+                  <div class="controls">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_name">First name *</label>
+                          <input id="form_name" type="text" name="name" class="form-control name" placeholder="Please enter your first name" required="required" data-error="Firstname is required.">
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_lastname">Last name *</label>
+                          <input id="form_lastname" type="text" name="surname" class="form-control name" placeholder="Please enter your last name" required="required" data-error="Lastname is required.">
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_email">Email *</label>
+                          <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_phone">Phone *</label>
+                          <input id="form_phone" type="tel" name="phone" class="form-control number" placeholder="Please enter your phone" required="required">
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="form_message">Message *</label>
+                          <textarea id="form_message" name="message" class="form-control" placeholder="Please write your query" rows="4" required="" data-error="Please,leave us a message."></textarea>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <input type="submit" name="Query" class="btn btn-black" value="Send Query" style="background-color: #1d2951;color: #fff;
+                        font-weight: bold;">
+                      </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+{% endblock %}

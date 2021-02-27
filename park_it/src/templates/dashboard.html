@@ -1,0 +1,110 @@
+{%  extends 'main.html' %}
+
+{% block content %}
+    
+{%  include 'status.html' %}
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+			<h5>CUSTOMERS:</h5>
+			<hr>
+			<div class="card card-body">
+				
+				<table class=" table table-sm ">
+					<tr>
+						<th></th>
+						<th>Customer</th>
+						<th>phone</th>
+						<th>gender</th>
+						<th>email</th>
+
+					</tr>
+					{% for customer in customers %}
+						<tr>
+							<td><a class="btn btn-sm btn-info" href="{% url 'customer' customer.id %}">view</a></td>
+							<td>{{customer.name}}</td>
+							<td>{{customer.phone}}</td>
+							<td>{{customer.gender}}</td>
+							<td>{{customer.email}}</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<h5>PARTNER:</h5>
+			<hr>
+			<div class="card card-body">
+				
+				<table class="table table-sm">
+					<tr>
+					<th></th>
+						<th>name</th>
+					<th>city</th>					
+					<th>fw_total_space</th>
+					<th>fw_available_space</th>
+					<th>fw_booked_space</th>
+					
+					<th>fw_price</th>
+					<th>Status</th>
+	
+					</tr>
+					{% for partner in partner %}
+						<tr>
+							<td><a class="btn btn-sm btn-info" href="{% url 'partner_detail' partner.id %}">view</a></td>
+							<td>{{partner.name}}</td>
+						<td>{{partner.city}}</td>
+						<td>{{partner.fw_total_space}}</td>
+						<td>{{partner.fw_available_space}}</td>
+						<td>{{partner.fw_booked_space}}</td>
+						
+						<td>{{partner.fw_price}}</td>
+						<td>{{partner.status}}</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="col-md-12 pt-3">
+		<h5>Recent Bookings</h5>
+		<hr>
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Customer</th>
+					<th>Partner</th>
+					<th>vehicle_type</th>
+					<th>vehicle_number</th>
+					<th>Date</th>
+					<th>Entry Time</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+				{% for book in booking %}
+					<tr>
+						<td>{{book.customer}}</td>
+						<td>{{book.partner}}</td>
+						<td>{{book.vehicle_type}}</td>
+						<td>{{book.vehicle_number}}</td>
+						<td>{{book.date1}}</td>
+						<td>{{book.entry_time1}}</td>
+						<td>{{book.date_created}}</td>
+						<td>{{book.status}}</td>
+
+						<td><a class="btn btn-sm btn-info" href="{% url 'update_booking' book.id %}">Update</a></td>
+						<td><a class="btn btn-sm btn-danger" href="{% url 'delete_booking' book.id  %}">Delete</a></td>
+
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+
+{% endblock%}

@@ -1,0 +1,59 @@
+{%  extends 'main.html' %}
+
+{% block content %}
+
+		<br>
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<h5>Partners</h5>
+				</div>
+				<div class="card card-body">
+					<table class="table">
+						<tr>
+							<th></th>
+							<th>name</th>
+							<th>phone</th>
+							<th>email</th>
+							<th>address</th>
+							<th>description</th>
+							<th>fw_total_space</th>
+							<th>fw_available</th>
+							<th>fw_booked</th>
+							<th>fw_occupied</th>
+							<th>fw_price</th>
+							<th>created</th>
+							<th>Status</th>
+
+						</tr>
+						{% for partner in partner %}
+							<tr>
+								<td><a class="btn btn-sm btn-info" href="{% url 'partner_detail' partner.id %}">view</a></td>
+								<td>{{partner.name}}</td>
+								<td>{{partner.phone}}</td>
+								<td>{{partner.email}}</td>
+								<td>{{partner.address}},{{partner.city}}</td>
+								<td>{{partner.description}}</td>
+								<td>{{partner.fw_total_space}}</td>
+								<td>{{partner.fw_available_space}}</td>
+								<td>{{partner.fw_booked_space}}</td>
+								<td>{{partner.fw_occupied_space}}</td>
+								<td>{{partner.fw_price}}</td>
+								<td>{{partner.date_created}}</td>
+								<td>{{partner.status}}</td>
+								
+								{% comment %} <td>{{partner.}}</td>
+								<td>{{partner.}}</td>
+								 {% endcomment %}
+
+								
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+			
+		</div>
+
+{% endblock content %}

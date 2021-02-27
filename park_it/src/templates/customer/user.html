@@ -1,0 +1,54 @@
+{%  extends 'customer/main.html' %}
+
+{% block content %}
+<br><br><br><br><br><br>    
+{%  include 'status.html' %}
+
+
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+				{{myFilter.form}}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Customer</th>
+					<th>Partner</th>
+					<th>vehicle_type</th>
+					<th>vehicle_number</th>
+					<th>Date</th>
+					<th>Entry Time</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+				</tr>
+				{% for book in booking %}
+					<tr>
+						<td>{{book.customer}}</td>
+						<td>{{book.partner}}</td>
+						<td>{{book.vehicle_type}}</td>
+						<td>{{book.vehicle_number}}</td>
+						<td>{{book.date1}}</td>
+						<td>{{book.entry_time1}}</td>
+						<td>{{book.date_created}}</td>
+						<td>{{book.status}}</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+{% endblock %}
